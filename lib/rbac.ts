@@ -1,12 +1,17 @@
-import { Role } from "@prisma/client";
+export type Role = "ADMIN" | "ANALYST" | "VIEWER";
 
 export const PERMISSIONS = {
-  UPLOAD: [Role.ADMIN, Role.ANALYST],
-  DECIDE: [Role.ADMIN, Role.REVIEWER],
-  VIEW_GOVERNANCE: [Role.ADMIN, Role.REVIEWER],
-  MANAGE_USERS: [Role.ADMIN],
-}
+  analyze: ["ADMIN", "ANALYST"] as Role[],
+  decide: ["ADMIN"] as Role[],
+  viewAudit: ["ADMIN", "ANALYST", "VIEWER"] as Role[],
+};
 
 export function can(role: Role, action: keyof typeof PERMISSIONS) {
-  return PERMISSIONS[action].includes(role);
+  return (PERMISSIONS[action] as Role[]).includes(role);
+}
+
+export function requireRole(userRole: Role, action: keyof typeof PERMISSIONS) {
+  if (!can(userRole, action)) {
+    throw new Error(`Role ${userRole} cannot ${action}`);
+  }
 }
