@@ -1,0 +1,19 @@
+{
+  "upload.title": "Upload Document",
+  "upload.subtitle": "RFP, Contract, SOW, Annexes — PDF, DOCX, Scanned Images",
+  "upload.drop": "Drop your tender documents here",
+  "upload.hint": "PDF up to 200MB • FR/EN bilingual supported",
+  "upload.browse": "Browse Files",
+  "upload.analyze": "Analyze with Gemini Long-Context",
+  "upload.meta": "{pages} pages • {tokens} tokens • {lang}",
+  "pipeline.title": "Evidence-to-Decision",
+  "pipeline.observe": "OBSERVE",
+  "pipeline.observe_desc": "Document ingestion",
+  "pipeline.understand": "UNDERSTAND",
+  "pipeline.understand_desc": "Requirements extraction",
+  "pipeline.decide": "DECIDE",
+  "pipeline.decide_desc": "BID/NO-BID",
+  "pipeline.act": "ACT",
+  "pipeline.act_desc": "Compliance plan",
+  "system.info": "Gemini 1.5 Pro • Long-context + Grounding • {locale}"
+}

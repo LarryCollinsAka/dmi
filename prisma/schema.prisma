@@ -1,0 +1,106 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @default(cuid())
+  email String @unique
+  name String?
+  role Role @default(ANALYST)
+  organization String?
+  createdAt DateTime @default(now())
+  decisionLogs DecisionLog[]
+  tenders TenderAnalysis[]
+}
+
+enum Role {
+  ADMIN
+  ANALYST
+  REVIEWER
+  VIEWER
+}
+
+model TenderAnalysis {
+  id String @id @default(cuid())
+  fileName String
+  uploadedBy String
+  user User? @relation(fields: [uploadedBy], references: [id])
+  localeDetected String @default("bilingual")
+  recommendation String @default("CONDITIONAL")
+  confidence Int @default(0)
+  tokens Int @default(0)
+  createdAt DateTime @default(now())
+  requirements Requirement[]
+  decisionLogs DecisionLog[]
+}
+
+model Requirement {
+  id String @id @default(cuid())
+  tenderId String
+  tender TenderAnalysis @relation(fields: [tenderId], references: [id])
+  section String
+  page Int
+  status String // met, partial, not_met
+  translations RequirementTranslation[]
+  frameworkMatches RequirementFrameworkMatch[]
+}
+
+model RequirementTranslation {
+  id String @id @default(cuid())
+  requirementId String
+  requirement Requirement @relation(fields: [requirementId], references: [id])
+  locale String // en, fr
+  label String
+  gap String?
+
+  @@unique([requirementId, locale])
+}
+
+model Framework {
+  id String @id @default(cuid())
+  code String @unique
+  title String
+  locale String
+  documents FrameworkDocument[]
+}
+
+model FrameworkDocument {
+  id String @id @default(cuid())
+  frameworkId String
+  framework Framework @relation(fields: [frameworkId], references: [id])
+  title String
+  pageRef String?
+  content String
+  metadata Json?
+  matches RequirementFrameworkMatch[]
+}
+
+model RequirementFrameworkMatch {
+  id String @id @default(cuid())
+  requirementId String
+  requirement Requirement @relation(fields: [requirementId], references: [id])
+  frameworkDocId String
+  frameworkDoc FrameworkDocument @relation(fields: [frameworkDocId], references: [id])
+  score Float
+  justification String
+  justification_fr String?
+  citation String
+}
+
+model DecisionLog {
+  id String @id @default(cuid())
+  tenderId String
+  tender TenderAnalysis @relation(fields: [tenderId], references: [id])
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  action String
+  reason String
+  previousRecommendation String?
+  newRecommendation String?
+  createdAt DateTime @default(now())
+}

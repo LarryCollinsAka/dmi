@@ -1,0 +1,19 @@
+{
+  "upload.title": "Téléverser le Document",
+  "upload.subtitle": "AO, Contrat, TDR, Annexes — PDF, DOCX, Images scannées",
+  "upload.drop": "Déposez vos documents d'appel d'offres ici",
+  "upload.hint": "PDF jusqu'à 200MB • Support bilingue FR/EN",
+  "upload.browse": "Parcourir les Fichiers",
+  "upload.analyze": "Analyser avec Gemini Long-Contexte",
+  "upload.meta": "{pages} pages • {tokens} jetons • {lang}",
+  "pipeline.title": "De la Preuve à la Décision",
+  "pipeline.observe": "OBSERVER",
+  "pipeline.observe_desc": "Ingestion du document",
+  "pipeline.understand": "COMPRENDRE",
+  "pipeline.understand_desc": "Extraction des exigences",
+  "pipeline.decide": "DÉCIDER",
+  "pipeline.decide_desc": "SOUMISSIONNER / NON",
+  "pipeline.act": "AGIR",
+  "pipeline.act_desc": "Plan de conformité",
+  "system.info": "Gemini 1.5 Pro • Long-contexte + Ancrage • {locale}"
+}
